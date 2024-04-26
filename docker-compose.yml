@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+ db:
+   image: mysql:latest
+   restart: always
+   container_name: blood_bank_container
+   ports:
+     - "3306:3306"
+   environment:
+     - MYSQL_ROOT_PASSWORD=mySQL
+     - MYSQL_DATABASE=blood_bank
+   volumes:
+     - mysql:/var/lib/mysql
+
+volumes:
+  mysql:
