@@ -2,6 +2,8 @@ import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { AllExceptionsFilter } from './all-exceptions.filter';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ValidationPipe } from '@nestjs/common';
+import cookieParser from 'cookie-parser';
 const PORT = process.env.PORT || 3000;
 
 async function bootstrap() {
@@ -15,6 +17,9 @@ async function bootstrap() {
 
   const { httpAdapter } = app.get(HttpAdapterHost);
   app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
+  app.use(cookieParser());
+
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true }))
 
   const config = new DocumentBuilder()
     .setTitle('Blood Bank API Docs')
@@ -50,7 +55,6 @@ async function bootstrap() {
       'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.css',
     ],
   });
-
 
   app.listen(PORT).then(() => {
     console.log(`App running on port ${PORT}`)
