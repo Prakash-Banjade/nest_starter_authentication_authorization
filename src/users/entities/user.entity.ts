@@ -29,7 +29,6 @@ export class User extends BaseEntity {
     refresh_token: string;
 
     @BeforeInsert()
-    @BeforeUpdate()
     hashPassword() {
         if (!this.password) throw new Error('Password required');
 
