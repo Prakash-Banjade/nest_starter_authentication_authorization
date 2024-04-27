@@ -4,6 +4,8 @@ import { AllExceptionsFilter } from './all-exceptions.filter';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import cookieParser from 'cookie-parser';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 const PORT = process.env.PORT || 3000;
 
 async function bootstrap() {
@@ -40,10 +42,10 @@ async function bootstrap() {
 
   // swagger
   const document = SwaggerModule.createDocument(app, config, {
-    include: [AppModule],
+    include: [AuthModule, UsersModule],
   });
   SwaggerModule.setup('api', app, document, {
-    customSiteTitle: 'Next Carpet Cleaning',
+    customSiteTitle: 'Blood Bank API Docs',
     customfavIcon: 'https://avatars.githubusercontent.com/u/6936373?s=200&v=4',
     customJs: [
       'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.min.js',
