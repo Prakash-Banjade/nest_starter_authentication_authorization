@@ -49,6 +49,13 @@ export class UsersService {
 
   async remove(id: string) {
     const existingUser = await this.findOne(id);
-    return await this.usersRepository.softRemove(existingUser);
+    await this.usersRepository.softRemove(existingUser);
+
+    return {
+      message: 'User removed',
+      user: {
+        email: existingUser.email,
+      }
+    }
   }
 }
