@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, HttpStatus, Post, Req, Res, UnauthorizedException } from '@nestjs/common';
+import { Body, Controller, Delete, HttpCode, HttpStatus, Post, Req, Res, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignInDto } from './dto/signIn.dto';
 import { CookieOptions, Request, Response } from 'express';
@@ -14,19 +14,23 @@ export class AuthController {
     cookieOptions: CookieOptions = {
         httpOnly: true,
         secure: false,
-        sameSite: 'lax'
+        sameSite: 'lax',
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 day
     }
+
+    // @Public()
+    // @Delete('deleteAll')
+    // async deleteAll() {
+    //     return await this.authService.deleteUsers();
+    // }
 
     @Public()
     @HttpCode(HttpStatus.OK)
     @Post('login')
-    async signIn(@Body() signInDto: SignInDto, @Res({ passthrough: true }) res: Response) {
+    async signIn(@Body() signInDto: SignInDto, @Res({ passthrough: true }) res: Response, @Req() req: Request) {
         const { access_token, refresh_token } = await this.authService.signIn(signInDto);
 
-        res.cookie('refresh_token', refresh_token, {
-            ...this.cookieOptions,
-            expires: new Date(Date.now() + 7 * 24 * 60 * 1000), // after 7 day
-        });
+        res.cookie('refresh_token', refresh_token, this.cookieOptions);
 
         return { access_token };
     }
@@ -34,10 +38,14 @@ export class AuthController {
     @Public()
     @Post('refresh')
     async refreshToken(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
-        const refresh_token = req.cookies.refresh_token;
+        const refresh_token = req.cookies?.refresh_token;
         if (!refresh_token) throw new UnauthorizedException('No refresh token provided');
 
-        return this.authService.refresh(refresh_token);
+        const { new_access_token, new_refresh_token } = await this.authService.refresh(refresh_token);
+
+        res.cookie('refresh_token', new_refresh_token, this.cookieOptions);
+
+        return { access_token: new_access_token };
     }
 
     @Public()
@@ -48,11 +56,15 @@ export class AuthController {
 
     @Post('logout')
     @HttpCode(HttpStatus.NO_CONTENT)
-    logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
-        const refresh_token = req.cookies.refresh_token;
-        if (!refresh_token) return;
+    async logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
+        // on client also delete the access_token
+
+        const refresh_token = req.cookies?.refresh_token;
+        if (!refresh_token) return res.sendStatus(204)
+
+        await this.authService.logout(refresh_token, res, this.cookieOptions);
 
         res.clearCookie('refresh_token', this.cookieOptions);
-        return;
+        return res.sendStatus(204);
     }
 }
