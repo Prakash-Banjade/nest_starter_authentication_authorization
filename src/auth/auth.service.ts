@@ -57,7 +57,7 @@ export class AuthService {
     return { access_token, refresh_token };
   }
 
-  async createAccessToken(payload: { email: string; userId: string }) {
+  async createAccessToken(payload: any) {
     return await this.jwtService.signAsync(payload, {
       expiresIn: '1m',
       secret: process.env.ACCESS_TOKEN_SECRET,
@@ -115,6 +115,7 @@ export class AuthService {
       email: foundUser.email,
       userId: foundUser.id,
       name: foundUser.name,
+      role: foundUser.role,
     };
 
     const new_access_token = await this.createAccessToken(payload);
