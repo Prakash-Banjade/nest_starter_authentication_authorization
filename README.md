@@ -29,11 +29,22 @@ Welcome to the NestJS Authentication and Authorization Starter repository! This 
 
 To get started with this starter template, follow these steps:
 
-1. Clone this repository to your local machine.
-2. Install dependencies using `npm install` or `yarn install`.
-3. Customize the provided User entity or create your own entities as needed.
-4. Configure authentication and authorization settings based on your application requirements.
-5. Start building your NestJS application by defining routes, controllers, and services.
+1. Create a new repository with this template by clicking the `Use this template` button on top right of <>Code section.
+2. Clone your newly create repository.
+3. Install dependencies using `npm install`.
+4. Customize the provided User entity or create your own entities as needed.
+5. Configure authentication and authorization settings based on your application requirements.
+6. Start building your NestJS application by defining routes, controllers, and services.
+
+## .env file configuration
+
+```bash
+DATABASE_URL=mysql://<db_user>:<db_password>@localhost:3306/<db_name>
+
+ACCESS_TOKEN_SECRET=
+
+REFRESH_TOKEN_SECRET=
+```  
 
 ## Contributing
 
