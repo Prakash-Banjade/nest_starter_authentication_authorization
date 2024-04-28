@@ -43,6 +43,7 @@ export class AuthService {
       email: foundUser.email,
       userId: foundUser.id,
       name: foundUser.name,
+      role: foundUser.role,
     };
 
     const access_token = await this.createAccessToken(payload);
