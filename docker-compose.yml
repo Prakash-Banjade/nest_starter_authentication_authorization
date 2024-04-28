@@ -4,12 +4,12 @@ services:
  db:
    image: mysql:latest
    restart: always
-   container_name: blood_bank_container
+   container_name: my_container_name
    ports:
      - "3306:3306"
    environment:
-     - MYSQL_ROOT_PASSWORD=mySQL
-     - MYSQL_DATABASE=blood_bank
+     - MYSQL_ROOT_PASSWORD=
+     - MYSQL_DATABASE=
    volumes:
      - mysql:/var/lib/mysql
 
