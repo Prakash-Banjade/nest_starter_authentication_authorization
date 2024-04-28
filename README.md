@@ -1,4 +1,4 @@
-# NestJS Authentication and Authorization Starter
+# <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="50" alt="Nest Logo" /></a> NestJS Authentication and Authorization Starter
 
 Welcome to the NestJS Authentication and Authorization Starter repository! This starter template provides a robust foundation for building authentication and authorization systems using NestJS, a progressive Node.js framework.
 
