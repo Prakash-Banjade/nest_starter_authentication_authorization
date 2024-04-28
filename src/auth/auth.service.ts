@@ -13,6 +13,7 @@ import { JwtService } from '@nestjs/jwt';
 import { RegisterDto } from './dto/register.dto';
 import { v4 as uuidv4 } from 'uuid';
 import { CookieOptions, Request, Response } from 'express';
+import { AuthUser } from 'src/types/global.types';
 require('dotenv').config();
 
 @Injectable()
@@ -57,7 +58,7 @@ export class AuthService {
     return { access_token, refresh_token };
   }
 
-  async createAccessToken(payload: any) {
+  async createAccessToken(payload: AuthUser) {
     return await this.jwtService.signAsync(payload, {
       expiresIn: '1m',
       secret: process.env.ACCESS_TOKEN_SECRET,

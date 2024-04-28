@@ -6,6 +6,10 @@ import { configService } from './config/db.config';
 import { UsersModule } from './users/users.module';
 import { MemoryStoredFile, NestjsFormDataModule } from 'nestjs-form-data';
 import { AuthModule } from './auth/auth.module';
+import { CaslModule } from './casl/casl.module';
+import { APP_GUARD } from '@nestjs/core';
+import { AuthGuard } from './auth/guards/auth.guard';
+import { AbilitiesGuard } from './casl/guards/abilities.guard';
 
 @Module({
   imports: [
@@ -18,8 +22,19 @@ import { AuthModule } from './auth/auth.module';
     }),
     UsersModule,
     AuthModule,
+    CaslModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: AbilitiesGuard, // global
+    }
+  ],
 })
 export class AppModule { }
