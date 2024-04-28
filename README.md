@@ -48,4 +48,4 @@ REFRESH_TOKEN_SECRET=
 
 ## Contributing
 
-We welcome contributions from the community! If you have any suggestions, improvements, or bug fixes, feel free to open an issue or submit a pull request.
+Contributions from the community are welcomed! If you have any suggestions, improvements, or bug fixes, feel free to open an issue or submit a pull request.
