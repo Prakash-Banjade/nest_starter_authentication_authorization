@@ -50,6 +50,10 @@ REFRESH_TOKEN_SECRET=
 
 Contributions from the community are welcomed! If you have any suggestions, improvements, or bug fixes, feel free to open an issue or submit a pull request.
 
+## Security
+
+For information on security-related matters, including reporting vulnerabilities and responsible disclosure guidelines, please refer to the [SECURITY.md](SECURITY.md) file.
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
