@@ -24,6 +24,12 @@ Welcome to the NestJS Authentication and Authorization Starter repository! This 
 7. **NestJSFormDataModule Configuration for File Upload**: Easily handle file uploads by configuring NestJSFormDataModule, simplifying the process of managing file uploads within your application.
 8. **Database Setup in Local Docker Container**: The database is set up in a local Docker container. Configuration details can be found in the `docker-compose.yml` file.
 9. **Class-validator Library for Endpoints Data Validation**: Implement robust data validation for your endpoints using the class-validator library.
+10. **Rate Limiting**: Rate limit your application end points.
+11. **Helmet**: Helmet helps secure your apps by setting various HTTP headers.
+12. **Custom security headers**: Implementing security headers and Content Security Policy (CSP) helps mitigate common web security vulnerabilities such as XSS and clickjacking attacks.
+
+### Other features
+1. `Pagination` functionality using Type ORM querybuilder.
 
 ## Getting Started
 
