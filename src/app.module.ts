@@ -44,7 +44,6 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
       provide: APP_GUARD,
       useClass: ThrottlerGuard, // global rate limiting, but can be overriden in route level
     }
-
   ],
 })
 export class AppModule { }
