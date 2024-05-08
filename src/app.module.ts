@@ -10,6 +10,7 @@ import { CaslModule } from './casl/casl.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { AbilitiesGuard } from './casl/guards/abilities.guard';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
@@ -20,6 +21,10 @@ import { AbilitiesGuard } from './casl/guards/abilities.guard';
       fileSystemStoragePath: 'public',
       autoDeleteFile: true,
     }),
+    ThrottlerModule.forRoot([{
+      ttl: 60000, // 10 requests per minute
+      limit: 10,
+    }]),
     UsersModule,
     AuthModule,
     CaslModule,
@@ -29,12 +34,17 @@ import { AbilitiesGuard } from './casl/guards/abilities.guard';
     AppService,
     {
       provide: APP_GUARD,
-      useClass: AuthGuard,
+      useClass: AuthGuard, // global auth guard
     },
     {
       provide: APP_GUARD,
-      useClass: AbilitiesGuard, // global
+      useClass: AbilitiesGuard, // global ability guard
+    },
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard, // global rate limiting, but can be overriden in route level
     }
+
   ],
 })
 export class AppModule { }
