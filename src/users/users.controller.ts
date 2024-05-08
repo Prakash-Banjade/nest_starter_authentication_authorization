@@ -4,8 +4,8 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiBearerAuth, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { FormDataRequest, MemoryStoredFile } from 'nestjs-form-data';
 import { CaslAbilityFactory } from 'src/casl/casl-ability.factory/casl-ability.factory';
-import { ChekcAbilities } from 'src/decorators/abilities.decorator';
-import { Action } from 'src/types/global.types';
+import { ChekcAbilities } from 'src/core/decorators/abilities.decorator';
+import { Action } from 'src/core/types/global.types';
 import { User } from './entities/user.entity';
 
 @ApiBearerAuth()

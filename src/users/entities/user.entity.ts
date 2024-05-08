@@ -1,7 +1,7 @@
-import { BaseEntity } from "src/entities/base.entity";
+import { BaseEntity } from "src/core/entities/base.entity";
 import { BeforeInsert, BeforeUpdate, Column, Entity } from "typeorm";
 import * as bcrypt from 'bcrypt';
-import { Roles } from "src/types/global.types";
+import { Roles } from "src/core/types/global.types";
 
 @Entity()
 export class User extends BaseEntity {

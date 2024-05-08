@@ -4,7 +4,7 @@ import { SignInDto } from './dto/signIn.dto';
 import { CookieOptions, Request, Response } from 'express';
 import { RegisterDto } from './dto/register.dto';
 import { ApiTags } from '@nestjs/swagger';
-import { Public } from 'src/decorators/setPublicRoute.decorator';
+import { Public } from 'src/core/decorators/setPublicRoute.decorator';
 
 @ApiTags('Authentication')
 @Controller('auth')

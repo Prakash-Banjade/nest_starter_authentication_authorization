@@ -8,8 +8,8 @@ services:
    ports:
      - "3306:3306"
    environment:
-     - MYSQL_ROOT_PASSWORD=
-     - MYSQL_DATABASE=
+     - MYSQL_ROOT_PASSWORD=mySQL
+     - MYSQL_DATABASE=testdb
    volumes:
      - mysql:/var/lib/mysql
 

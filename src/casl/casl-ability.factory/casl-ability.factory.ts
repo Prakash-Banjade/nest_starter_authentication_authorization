@@ -1,6 +1,6 @@
 import { AbilityBuilder, ExtractSubjectType, InferSubjects, MongoAbility, createMongoAbility } from "@casl/ability";
 import { Injectable } from "@nestjs/common";
-import { Action, AuthUser, Roles } from "src/types/global.types";
+import { Action, AuthUser, Roles } from "src/core/types/global.types";
 import { User } from "src/users/entities/user.entity";
 
 export type Subjects = InferSubjects<typeof User> | 'all';

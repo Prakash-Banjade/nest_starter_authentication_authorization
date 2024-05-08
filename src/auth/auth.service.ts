@@ -13,7 +13,7 @@ import { JwtService } from '@nestjs/jwt';
 import { RegisterDto } from './dto/register.dto';
 import { v4 as uuidv4 } from 'uuid';
 import { CookieOptions, Request, Response } from 'express';
-import { AuthUser } from 'src/types/global.types';
+import { AuthUser } from 'src/core/types/global.types';
 require('dotenv').config();
 
 @Injectable()
