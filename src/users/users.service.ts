@@ -35,14 +35,8 @@ export class UsersService {
   async update(id: string, updateUserDto: UpdateUserDto) {
     const existingUser = await this.findOne(id);
 
-    // TODO: finalize how to store image
-
-    Object.assign(existingUser, {
-      name: updateUserDto.name,
-      email: updateUserDto.email,
-      // image: updateUserDto.image
-    });
-
+    // TODO: update logic here
+    
     return await this.usersRepository.save(existingUser);
   }
 
