@@ -20,9 +20,6 @@ export class User extends BaseEntity {
     @Column({ type: 'varchar', nullable: true })
     image: string;
 
-    @Column({ type: 'boolean', default: false })
-    isDonor: boolean;
-
     // TODO: Define donor
 
     @Column({ type: 'varchar', nullable: true })

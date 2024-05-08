@@ -1,4 +1,4 @@
-import { Controller, Get, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiBearerAuth, ApiConsumes, ApiTags } from '@nestjs/swagger';
@@ -7,6 +7,9 @@ import { CaslAbilityFactory } from 'src/casl/casl-ability.factory/casl-ability.f
 import { ChekcAbilities } from 'src/core/decorators/abilities.decorator';
 import { Action } from 'src/core/types/global.types';
 import { User } from './entities/user.entity';
+import { ApiPaginatedResponse } from 'src/core/decorators/apiPaginatedResponse.decorator';
+import { CreateUserDto } from './dto/create-user.dto';
+import { PageOptionsDto } from 'src/core/dto/pageOptions.dto';
 
 @ApiBearerAuth()
 @ApiTags('Users')
@@ -20,8 +23,9 @@ export class UsersController {
   // Users are created from auth/register
 
   @Get()
-  findAll() {
-    return this.usersService.findAll();
+  @ApiPaginatedResponse(CreateUserDto)
+  findAll(@Query() pageOptionsDto: PageOptionsDto) {
+    return this.usersService.findAll(pageOptionsDto);
   }
 
   @Get(':id')
