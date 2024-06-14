@@ -1,10 +1,23 @@
 {
   "name": "blood_bank",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
-  "private": true,
-  "license": "UNLICENSED",
+  "description": "A NestJs starter template with full fledged authentication and authorization features and many more.",
+  "author": "Prakash Banjade",
+  "contributors": [
+    "Prakash Banjade (https://github.com/prakash-banjade)"
+  ],
+  "keywords": [
+    "nestjs",
+    "typescript",
+    "typeorm",
+    "mysql2",
+    "casl ability",
+    "querybuilder",
+    "morgan & winston"
+  ],
+  "homepage": "https://github.com/Prakash-Banjade/nest_starter_authentication_authorization.git",
+  "private": false,
+  "license": "MIT",
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
