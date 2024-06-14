@@ -7,13 +7,25 @@ services:
   db:
     image: mysql:latest
     restart: always
-    container_name: my_container_name
+    container_name: mySQL
     ports:
       - "3306:3306"
     env_file:
       - .env
     volumes:
       - mysql:/var/lib/mysql
+
+  redis:
+    image: redis:7.2.5-alpine
+    restart: always
+    container_name: redis
+    ports:
+      - '6379:6379'
+    env_file:
+      - .env
+    command: redis-server --save 20 1 --loglevel warning
+    volumes:
+      - cache:/data
 
   app:
     build:
@@ -27,6 +39,9 @@ services:
       - "3000:3000"
     depends_on:
       - db
+      - redis
 
 volumes:
   mysql:
+  cache:
+    driver: local
