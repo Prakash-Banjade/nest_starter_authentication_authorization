@@ -18,12 +18,6 @@ export class AuthController {
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 day
     }
 
-    // @Public()
-    // @Delete('deleteAll')
-    // async deleteAll() {
-    //     return await this.authService.deleteUsers();
-    // }
-
     @Public()
     @HttpCode(HttpStatus.OK)
     @Post('login')
