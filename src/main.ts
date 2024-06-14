@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import { setupSwagger } from './config/swagger.config';
 import helmet from 'helmet';
 import { SecurityHeadersMiddleware } from './core/middlewares/security_headers.middleware';
+import { setupMorgan } from './config/morgan.config';
 const PORT = process.env.PORT || 3000;
 
 async function bootstrap() {
@@ -33,6 +34,9 @@ async function bootstrap() {
 
   // swagger setup
   setupSwagger(app);
+
+  // setup morgan
+  setupMorgan(app);
 
 
   app.listen(PORT).then(() => {
