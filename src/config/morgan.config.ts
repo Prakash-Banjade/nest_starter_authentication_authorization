@@ -7,16 +7,11 @@ const morganFormat = ':method :url :status :response-time ms';
 export function setupMorgan(app: INestApplication): void {
     app.use(morgan(morganFormat, {
         stream: {
-            write: (message: any) => {
-                const logObject = {
-                    method: message.split(' ')[0],
-                    url: message.split(' ')[1],
-                    status: message.split(' ')[2],
-                    responseTime: message.split(' ')[3],
+            write: (message: string) => {
+                const splitMsg = message.trim().split(' ');
+                const logMsg = `${splitMsg[0]}\t${splitMsg[1]}\t${splitMsg[2]}\t${splitMsg[3]}`;
 
-                };
-                
-                logger.info(JSON.stringify(logObject));
+                logger.info(logMsg);
             }
         }
     }));
