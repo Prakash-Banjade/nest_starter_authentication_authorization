@@ -20,8 +20,6 @@ export class User extends BaseEntity {
     @Column({ type: 'varchar', nullable: true })
     image: string;
 
-    // TODO: Define donor
-
     @Column({ type: 'varchar', nullable: true })
     refresh_token: string;
 
