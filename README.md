@@ -31,6 +31,7 @@ Welcome to the NestJS Authentication and Authorization Starter repository! This 
 
 ### Other features
 1. `Pagination` functionality using Type ORM querybuilder.
+2. `Morgan & Winston` logging middleware.
 
 ## Getting Started
 
