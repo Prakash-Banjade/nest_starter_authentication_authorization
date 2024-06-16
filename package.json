@@ -1,5 +1,5 @@
 {
-  "name": "blood_bank",
+  "name": "nestjs_starter_authentication_authorization",
   "version": "0.0.1",
   "description": "A NestJs starter template with full fledged authentication and authorization features and many more.",
   "author": "Prakash Banjade",
