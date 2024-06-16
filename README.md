@@ -19,14 +19,15 @@ Welcome to the NestJS Authentication and Authorization Starter repository! This 
 2. **Swagger Setup**: Easily document and test your API endpoints with Swagger setup, providing a user-friendly interface for developers to interact with your API.
 3. **Global Exception Filter**: Handle exceptions gracefully with a global exception filter, improving error handling and providing a consistent user experience.
 4. **TypeORM Module**: Integrate TypeORM, a powerful Object-Relational Mapping (ORM) library, for seamless database interactions and entity management.
-5. **Global Validation Filter**: Ensure data integrity by implementing a global validation filter, validating incoming requests against defined schemas.
-6. **Default User Entity**: Get started quickly with a default User entity, including essential fields for authentication and authorization.
-7. **NestJSFormDataModule Configuration for File Upload**: Easily handle file uploads by configuring NestJSFormDataModule, simplifying the process of managing file uploads within your application.
-8. **Database Setup in Local Docker Container**: The database is set up in a local Docker container. Configuration details can be found in the `docker-compose.yml` file.
-9. **Class-validator Library for Endpoints Data Validation**: Implement robust data validation for your endpoints using the class-validator library.
-10. **Rate Limiting**: Rate limit your application end points.
-11. **Helmet**: Helmet helps secure your apps by setting various HTTP headers.
-12. **Custom security headers**: Implementing security headers and Content Security Policy (CSP) helps mitigate common web security vulnerabilities such as XSS and clickjacking attacks.
+5. **Redis Caching**: Integrate Redis caching with NestJS, providing a scalable and efficient caching solution.
+6. **Global Validation Filter**: Ensure data integrity by implementing a global validation filter, validating incoming requests against defined schemas.
+7. **Default User Entity**: Get started quickly with a default User entity, including essential fields for authentication and authorization.
+8. **NestJSFormDataModule Configuration for File Upload**: Easily handle file uploads by configuring NestJSFormDataModule, simplifying the process of managing file uploads within your application.
+9. **Database Setup in Local Docker Container**: The database is set up in a local Docker container. Configuration details can be found in the `docker-compose.yml` file.
+10. **Class-validator Library for Endpoints Data Validation**: Implement robust data validation for your endpoints using the class-validator library.
+11. **Rate Limiting**: Rate limit your application end points.
+12. **Helmet**: Helmet helps secure your apps by setting various HTTP headers.
+13. **Custom security headers**: Implementing security headers and Content Security Policy (CSP) helps mitigate common web security vulnerabilities such as XSS and clickjacking attacks.
 
 ### Other features
 1. `Pagination` functionality using Type ORM querybuilder.
@@ -37,10 +38,11 @@ To get started with this starter template, follow these steps:
 
 1. Create a new repository with this template by clicking the `Use this template` button on top right of <>Code section.
 2. Clone your newly create repository.
-3. Install dependencies using `npm install`.
-4. Customize the provided User entity or create your own entities as needed.
-5. Configure authentication and authorization settings based on your application requirements.
-6. Start building your NestJS application by defining routes, controllers, and services.
+3. Update `package.json` information according to your project.
+4. Install dependencies using `npm install`.
+5. Customize the provided User entity or create your own entities as needed.
+6. Configure authentication and authorization settings based on your application requirements.
+7. Start building your NestJS application by defining routes, controllers, and services.
 
 ## .env file configuration
 
@@ -50,6 +52,13 @@ DATABASE_URL=mysql://<db_user>:<db_password>@localhost:3306/<db_name>
 ACCESS_TOKEN_SECRET=
 
 REFRESH_TOKEN_SECRET=
+
+MYSQL_ROOT_PASSWORD=
+MYSQL_DATABASE=
+
+REDIS_HOST=
+REDIS_PORT=
+REDIS_PASSWORD=
 ```  
 
 ## Contributing
