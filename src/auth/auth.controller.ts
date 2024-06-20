@@ -1,10 +1,11 @@
-import { Body, Controller, HttpCode, HttpStatus, Post, Req, Res, UnauthorizedException } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Post, Req, Res, UnauthorizedException, UseInterceptors } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignInDto } from './dto/signIn.dto';
 import { CookieOptions, Request, Response } from 'express';
 import { RegisterDto } from './dto/register.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { Public } from 'src/core/decorators/setPublicRoute.decorator';
+import { TransactionInterceptor } from 'src/core/interceptors/transaction.interceptor';
 
 @ApiTags('Authentication')
 @Controller('auth')
@@ -44,6 +45,7 @@ export class AuthController {
     }
 
     @Public()
+    @UseInterceptors(TransactionInterceptor)
     @Post('register')
     async register(@Body() registerDto: RegisterDto) {
         return await this.authService.register(registerDto);
