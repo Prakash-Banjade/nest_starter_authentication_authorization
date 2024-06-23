@@ -15,10 +15,15 @@ import { AbilitiesGuard } from './casl/guards/abilities.guard';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { CacheInterceptor, CacheModule } from '@nestjs/cache-manager';
 import { redisStore } from 'cache-manager-redis-store';
+import { MailModule } from './mail/mail.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(configService),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     NestjsFormDataModule.config({
       storage: MemoryStoredFile,
       isGlobal: true,
@@ -44,6 +49,7 @@ import { redisStore } from 'cache-manager-redis-store';
     UsersModule,
     AuthModule,
     CaslModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [
