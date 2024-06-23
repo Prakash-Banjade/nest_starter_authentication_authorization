@@ -15,7 +15,7 @@ export class MailService {
         const result = await this.mailerService.sendMail({
             to: user.email,
             subject: 'Welcome to NestJS Starter ! Confirm your Email',
-            template: './sendUserCredentials', // `.hbs` extension is appended automatically
+            template: './sendUserCredentials', // `.hbs` extension is appended automatically | NOTE: update compilerOption in nest-cli.json
             context: { // ✏️ filling curly brackets with content
                 name: user.name,
                 email: user.email,
