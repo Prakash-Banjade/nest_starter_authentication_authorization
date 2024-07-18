@@ -6,10 +6,9 @@ import { FormDataRequest, MemoryStoredFile } from 'nestjs-form-data';
 import { CaslAbilityFactory } from 'src/casl/casl-ability.factory/casl-ability.factory';
 import { ChekcAbilities } from 'src/core/decorators/abilities.decorator';
 import { Action } from 'src/core/types/global.types';
-import { User } from './entities/user.entity';
 import { ApiPaginatedResponse } from 'src/core/decorators/apiPaginatedResponse.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
-import { PageOptionsDto } from 'src/core/dto/pageOptions.dto';
+import { UsersQueryDto } from './dto/user-query.dto';
 
 @ApiBearerAuth()
 @ApiTags('Users')
@@ -24,8 +23,8 @@ export class UsersController {
 
   @Get()
   @ApiPaginatedResponse(CreateUserDto)
-  findAll(@Query() pageOptionsDto: PageOptionsDto) {
-    return this.usersService.findAll(pageOptionsDto);
+  findAll(@Query() queryDto: UsersQueryDto) {
+    return this.usersService.findAll(queryDto);
   }
 
   @Get(':id')

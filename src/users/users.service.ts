@@ -3,8 +3,8 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
-import { PageOptionsDto } from 'src/core/dto/pageOptions.dto';
 import paginatedData from 'src/core/utils/paginatedData';
+import { UsersQueryDto } from './dto/user-query.dto';
 
 @Injectable()
 export class UsersService {
@@ -13,16 +13,16 @@ export class UsersService {
     @InjectRepository(User) private usersRepository: Repository<User>
   ) { }
 
-  async findAll(pageOptionsDto: PageOptionsDto) {
+  async findAll(queryDto: UsersQueryDto) {
     const queryBuilder = this.queryBuilder();
 
     queryBuilder
-      .orderBy("user.createdAt", pageOptionsDto.order)
-      .skip(pageOptionsDto.skip)
-      .take(pageOptionsDto.take)
+      .orderBy("user.createdAt", queryDto.order)
+      .skip(queryDto.skip)
+      .take(queryDto.take)
       .select(["user.id", "user.name", "user.email", "user.role", "user.image", "user.createdAt", "user.updatedAt"]);
 
-    return paginatedData(pageOptionsDto, queryBuilder);
+    return paginatedData(queryDto, queryBuilder);
   }
 
   async findOne(id: string) {
