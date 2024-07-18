@@ -17,6 +17,8 @@ import { CacheInterceptor, CacheModule } from '@nestjs/cache-manager';
 import { redisStore } from 'cache-manager-redis-store';
 import { MailModule } from './mail/mail.module';
 import { ConfigModule } from '@nestjs/config';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -29,6 +31,10 @@ import { ConfigModule } from '@nestjs/config';
       isGlobal: true,
       fileSystemStoragePath: 'public',
       autoDeleteFile: true,
+      cleanupAfterSuccessHandle: false, // !important
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'), // serve static files eg: localhost:3000/filename.png
     }),
     ThrottlerModule.forRoot([{
       ttl: 60000, // 10 requests per minute
