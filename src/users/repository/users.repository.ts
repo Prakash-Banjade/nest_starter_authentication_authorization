@@ -6,13 +6,9 @@ import { DataSource } from 'typeorm';
 import { User } from '../entities/user.entity';
 
 @Injectable({ scope: Scope.REQUEST })
-export class ProductsRepository extends BaseRepository {
+export class UsersRepository extends BaseRepository {
     constructor(dataSource: DataSource, @Inject(REQUEST) req: Request) {
         super(dataSource, req);
-    }
-
-    async getAllProducts() {
-        return await this.getRepository(User).find();
     }
 
     async createUser(user: User) {
