@@ -193,6 +193,35 @@ export class AuthService {
     };
   }
 
+  async verifyResetToken(providedResetToken: string) {
+    // hash the provided token to check in database
+    const hashedResetToken = crypto
+      .createHash('sha256')
+      .update(providedResetToken)
+      .digest('hex');
+
+    // Retrieve the hashed reset token from the database
+    const passwordChangeRequest = await this.passwordChangeRequestRepo.findOneBy({ hashedResetToken });
+
+    if (!passwordChangeRequest) {
+      throw new BadRequestException('Invalid reset token');
+    }
+
+    // Check if the reset token has expired
+    const now = new Date();
+    const resetTokenExpiration = new Date(passwordChangeRequest.createdAt);
+    resetTokenExpiration.setMinutes(resetTokenExpiration.getMinutes() + 5); // 5 minutes
+    if (now > resetTokenExpiration) {
+      await this.passwordChangeRequestRepo.remove(passwordChangeRequest);
+      throw new BadRequestException('Reset token has expired');
+    }
+
+    return {
+      message: 'Token is valid for now',
+      valid: true,
+    }
+  }
+
   async resetPassword(password: string, providedResetToken: string) {
     // hash the provided token to check in database
     const hashedResetToken = crypto

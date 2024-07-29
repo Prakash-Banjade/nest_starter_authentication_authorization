@@ -9,6 +9,7 @@ import { TransactionInterceptor } from 'src/core/interceptors/transaction.interc
 import { Throttle } from '@nestjs/throttler';
 import { PasswordChangeRequestDto } from './dto/password-change-req.dto';
 import { ResetPasswordDto } from './dto/resetPassword.dto';
+import { VerifyResetTokenDto } from './dto/verify-reset-token.dto';
 
 @ApiTags('Authentication')
 @Controller('auth')
@@ -74,6 +75,14 @@ export class AuthController {
     @Throttle({ default: { limit: 1, ttl: 5000 } }) // override the default rate limit for password reset
     forgetPassword(@Body() { email }: PasswordChangeRequestDto) {
         return this.authService.forgetPassword(email)
+    }
+
+    @Public()
+    @Post('verifyResetToken')
+    @HttpCode(HttpStatus.OK)
+    @Throttle({ default: { limit: 1, ttl: 5000 } }) // override the default rate limit for password reset
+    verifyResetToken(@Body() { token }: VerifyResetTokenDto) {
+        return this.authService.verifyResetToken(token)
     }
 
     @Public()
