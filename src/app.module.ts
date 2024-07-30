@@ -19,6 +19,8 @@ import { MailModule } from './mail/mail.module';
 import { ConfigModule } from '@nestjs/config';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { ImagesModule } from './images/images.module';
+import { AccountsModule } from './accounts/accounts.module';
 
 @Module({
   imports: [
@@ -30,7 +32,11 @@ import { join } from 'path';
       storage: MemoryStoredFile,
       isGlobal: true,
       fileSystemStoragePath: 'public',
-      autoDeleteFile: true,
+      autoDeleteFile: false,
+      limits: {
+        files: 10,
+        fileSize: 5 * 1024 * 1024,
+      },
       cleanupAfterSuccessHandle: false, // !important
     }),
     ServeStaticModule.forRoot({
@@ -56,6 +62,8 @@ import { join } from 'path';
     AuthModule,
     CaslModule,
     MailModule,
+    ImagesModule,
+    AccountsModule,
   ],
   controllers: [AppController],
   providers: [

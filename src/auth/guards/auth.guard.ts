@@ -18,12 +18,12 @@ export class AuthGuard implements CanActivate {
 
         const request = context.switchToHttp().getRequest();
         const access_token = this.extractTokenFromHeader(request);
-        const refresh_token = request.cookies?.refresh_token;
-        if (!access_token || !refresh_token) throw new UnauthorizedException();
+        // const refresh_token = request.cookies?.refresh_token;
+        if (!access_token) throw new UnauthorizedException();
         try {
-            await this.jwtService.verifyAsync(refresh_token, {
-                secret: process.env.REFRESH_TOKEN_SECRET,
-            })
+            // await this.jwtService.verifyAsync(refresh_token, {
+            //     secret: process.env.REFRESH_TOKEN_SECRET,
+            // })
             
             const payload = await this.jwtService.verifyAsync(access_token, {
                 secret: process.env.ACCESS_TOKEN_SECRET,

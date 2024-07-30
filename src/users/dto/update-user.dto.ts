@@ -1,20 +1,38 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { IsEmail, IsOptional, IsString } from 'class-validator';
+import { IsDateString, IsEmail, IsEnum, IsNotEmpty, IsOptional, IsPhoneNumber, IsString, IsUUID, Length } from 'class-validator';
 import { MemoryStoredFile } from 'nestjs-form-data';
+import { Gender } from 'src/core/types/global.types';
 
 export class UpdateUserDto {
-    @ApiPropertyOptional({ type: 'string', description: 'Name' })
+    @ApiPropertyOptional({ type: 'string', description: 'First name of the user' })
+    @IsString()
+    @IsNotEmpty()
+    @Length(2)
+    @IsOptional()
+    firstName?: string;
+
+    @ApiPropertyOptional({ type: 'string', description: 'Last name of the user' })
     @IsString()
     @IsOptional()
-    name: string;
+    lastName?: string = '';
 
-    @ApiPropertyOptional({ type: 'string', description: 'Email' })
-    @IsEmail()
+    @ApiPropertyOptional({ type: 'string', description: 'A valid UAE based phone number' })
+    @IsPhoneNumber('AE')
     @IsOptional()
-    email: string;
+    phone?: string
 
-    @ApiPropertyOptional({ type: 'string', format: 'binary', description: 'Profile Image' })
-    @IsString()
+    @ApiPropertyOptional({ type: 'enum', enum: Gender, enumName: 'Gender' })
+    @IsEnum(Gender)
     @IsOptional()
-    image: string | MemoryStoredFile
+    gender?: Gender
+
+    @ApiPropertyOptional({ type: 'string', format: 'date-time', description: 'Date of Birth' })
+    @IsDateString({ strict: true })
+    @IsOptional()
+    dob?: string
+
+    @ApiPropertyOptional({ type: 'string', description: 'Profile image url' })
+    @IsOptional()
+    @IsUUID()
+    profileImageId?: string;
 }

@@ -1,20 +1,26 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsEmail, IsNotEmpty, IsString, Length } from "class-validator";
+import { IsEmail, IsNotEmpty, IsOptional, IsString, IsStrongPassword, Length } from "class-validator";
 
 export class RegisterDto {
-    @ApiProperty({ type: 'string', description: 'Name must be at least 3 characters long' })
+    @ApiProperty({ type: 'string', description: 'First name of the user' })
     @IsString()
     @IsNotEmpty()
-    @Length(3)
-    name: string;
+    @Length(2)
+    firstName!: string;
+
+    @ApiProperty({ type: 'string', description: 'Last name of the user' })
+    @IsString()
+    @Length(2)
+    @IsOptional()
+    lastName?: string;
 
     @ApiProperty({ type: 'string', format: 'email', description: 'Valid email' })
     @IsEmail()
     @IsNotEmpty()
-    email: string;
+    email!: string;
 
-    @ApiProperty({ type: 'string', description: 'Password must be at least 8 characters long' })
+    @ApiProperty({ type: 'string', description: 'Enter a strong password' })
     @IsString()
-    @Length(8)
-    password: string;
+    @IsStrongPassword()
+    password!: string;
 }

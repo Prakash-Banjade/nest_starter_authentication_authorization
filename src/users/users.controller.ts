@@ -5,10 +5,11 @@ import { ApiBearerAuth, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { FormDataRequest, MemoryStoredFile } from 'nestjs-form-data';
 import { CaslAbilityFactory } from 'src/casl/casl-ability.factory/casl-ability.factory';
 import { ChekcAbilities } from 'src/core/decorators/abilities.decorator';
-import { Action } from 'src/core/types/global.types';
+import { Action, AuthUser } from 'src/core/types/global.types';
 import { ApiPaginatedResponse } from 'src/core/decorators/apiPaginatedResponse.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UsersQueryDto } from './dto/user-query.dto';
+import { CurrentUser } from 'src/core/decorators/user.decorator';
 
 @ApiBearerAuth()
 @ApiTags('Users')
@@ -16,15 +17,20 @@ import { UsersQueryDto } from './dto/user-query.dto';
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,
-    private readonly abilityFactory: CaslAbilityFactory
   ) { }
 
   // Users are created from auth/register
 
   @Get()
   @ApiPaginatedResponse(CreateUserDto)
+  @ChekcAbilities({ action: Action.READ, subject: 'all' })
   findAll(@Query() queryDto: UsersQueryDto) {
     return this.usersService.findAll(queryDto);
+  }
+
+  @Get('me')
+  getMyInfo(@CurrentUser() currentUser: AuthUser) {
+    return this.usersService.myDetails(currentUser);
   }
 
   @Get(':id')
@@ -33,10 +39,10 @@ export class UsersController {
   }
 
   @FormDataRequest({ storage: MemoryStoredFile })
-  @Patch(':id')
+  @Patch()
   @ApiConsumes('multipart/form-data')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(id, updateUserDto);
+  update(@Body() updateUserDto: UpdateUserDto, @CurrentUser() currentUser: AuthUser) {
+    return this.usersService.update(updateUserDto, currentUser);
   }
 
   @Delete(':id')
@@ -45,3 +51,4 @@ export class UsersController {
     return this.usersService.remove(id);
   }
 }
+

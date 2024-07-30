@@ -1,8 +1,8 @@
 import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { User } from 'src/users/entities/user.entity';
 import * as nodemailer from 'nodemailer';
+import { Account } from 'src/accounts/entities/account.entity';
 
 @Injectable()
 export class MailService {
@@ -11,32 +11,33 @@ export class MailService {
         private readonly configService: ConfigService
     ) { }
 
-    async sendUserCredentials(user: User, password: string) {
+    async sendEmailVerificationOtp(account: Account, otp: number, verificationToken: string) {
         const result = await this.mailerService.sendMail({
-            to: user.email,
-            subject: 'Welcome to NestJS Starter ! Confirm your Email',
-            template: './sendUserCredentials', // `.hbs` extension is appended automatically | NOTE: update compilerOption in nest-cli.json
+            to: account.email,
+            subject: 'Email verification',
+            template: './sendEmailVerificationOtp', // `.hbs` extension is appended automatically
             context: { // ✏️ filling curly brackets with content
-                name: user.name,
-                email: user.email,
-                password,
+                name: account.firstName + ' ' + account.lastName,
+                otp: otp,
+                url: `${this.configService.get('CLIENT_URL')}/verify-email/${verificationToken}`,
             },
         });
 
         const previewUrl = nodemailer.getTestMessageUrl(result);
         console.log('Preview URL:', previewUrl);
 
-        return result;
+        return { result, previewUrl };
+
     }
 
-    async sendResetPasswordLink(user: User, resetToken: string) {
+    async sendResetPasswordLink(account: Account, resetToken: string) {
         const result = await this.mailerService.sendMail({
-            to: user.email,
+            to: account.email,
             subject: 'Reset your password',
             template: './sendResetPasswordLink', // `.hbs` extension is appended automatically
             context: { // ✏️ filling curly brackets with content
-                name: user.name,
-                resetLink: `${this.configService.get('CLIENT_URL')}/reset-password/${resetToken}`,
+                name: account.firstName + ' ' + account.lastName,
+                resetLink: `${this.configService.get('CLIENT_URL')}/auth/forget-password?resetToken=${resetToken}`,
             },
         });
 
