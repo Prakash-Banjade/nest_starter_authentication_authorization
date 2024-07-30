@@ -8,6 +8,7 @@ Welcome to the NestJS Authentication and Authorization Starter repository! This 
 1. **JWT Access and Refresh Token Rotation**: Implementing a fully functional JWT access token and refresh token rotation strategy ensures secure and efficient authentication.
 2. **Global Authentication Guard**: Protect your routes with a global authentication guard to ensure that only authenticated users can access protected resources.
 3. **Custom Decorator for Public Routes**: Easily make any route public by using a custom decorator, providing flexibility in defining which routes require authentication.
+4. **Google OAuth**: Enable Google OAuth authentication for your NestJS application.
 
 ### Authorization
 1. **CASL Authorization Library**: Utilize CASL, an isomorphic authorization library, to implement fine-grained access control based on user roles and permissions.
@@ -28,6 +29,7 @@ Welcome to the NestJS Authentication and Authorization Starter repository! This 
 11. **Rate Limiting**: Rate limit your application end points.
 12. **Helmet**: Helmet helps secure your apps by setting various HTTP headers.
 13. **Custom security headers**: Implementing security headers and Content Security Policy (CSP) helps mitigate common web security vulnerabilities such as XSS and clickjacking attacks.
+14. **Image File Upload**: Integrate image file upload functionality with your NestJS application.**
 
 ### Other features
 1. `Pagination` functionality using Type ORM querybuilder.
@@ -51,8 +53,10 @@ To get started with this starter template, follow these steps:
 DATABASE_URL=mysql://<db_user>:<db_password>@localhost:3306/<db_name>
 
 ACCESS_TOKEN_SECRET=
-
+ACCESS_TOKEN_EXPIRATION=
 REFRESH_TOKEN_SECRET=
+REFRESH_TOKEN_EXPIRATION=
+REFRESH_HEADER_KEY=X-Refresh-Key
 
 MYSQL_ROOT_PASSWORD=
 MYSQL_DATABASE=
@@ -60,6 +64,13 @@ MYSQL_DATABASE=
 REDIS_HOST=
 REDIS_PORT=
 REDIS_PASSWORD=
+
+BACKEND_URL=
+CLIENT_URL=
+
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+GOOGLE_REDIRECT_URI=
 ```  
 
 ## Contributing
